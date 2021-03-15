@@ -532,7 +532,7 @@ impl<R, M> FluentBundle<R, M> {
     /// [FTL syntax guide]: https://projectfluent.org/fluent/guide/functions.html
     pub fn add_function<F>(&mut self, id: &str, func: F) -> Result<(), FluentError>
     where
-        F: Fn(&'a [FluentValue<'a>], &'a FluentArgs<'a>) -> FluentValue<'a> + Sync + Send + 'static,
+        F: for<'a> Fn(&'a [FluentValue<'a>], &'a FluentArgs<'a>) -> FluentValue<'a> + Sync + Send + 'static,
     {
         match self.entries.entry(id.to_owned()) {
             HashEntry::Vacant(entry) => {
