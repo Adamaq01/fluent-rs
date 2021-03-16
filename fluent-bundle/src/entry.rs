@@ -10,7 +10,7 @@ use crate::resource::FluentResource;
 use crate::types::FluentValue;
 
 pub type FluentFunction =
-    Box<dyn for<'a> Fn(&[FluentValue<'a>], &FluentArgs) -> FluentValue<'a> + Send + Sync>;
+    Box<dyn for<'a> Fn(&'a [FluentValue<'a>], &'a FluentArgs<'a>) -> FluentValue<'a> + Send + Sync>;
 
 pub enum Entry {
     Message((usize, usize)),
