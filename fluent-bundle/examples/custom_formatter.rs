@@ -64,7 +64,7 @@ key-var-with-arg = Here is a variable formatted with an argument { NUMBER($num, 
     println!("{}", value);
 
     // 3. Next, we're going to plug our custom formatter.
-    bundle.set_formatter(Some(custom_formatter));
+    bundle.set_formatter(Some(Box::new(custom_formatter)));
 
     // 4. Now, when you attempt to format a number, the custom formatter
     //    will be used instead of the default one.

@@ -123,7 +123,7 @@ fn create_bundle(
     });
     if let Some(transform) = transform {
         match transform.as_str() {
-            "example" => bundle.set_transform(Some(transform_example)),
+            "example" => bundle.set_transform(Some(Box::new(transform_example))),
             _ => unimplemented!(),
         }
     }

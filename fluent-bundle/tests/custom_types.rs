@@ -222,7 +222,7 @@ key-num-explicit = Hello { NUMBER(5, minimumFractionDigits: 2) } World
     let val = bundle.format_pattern(msg.value().unwrap(), None, &mut errors);
     assert_eq!(val, "Hello 5.000 World");
 
-    bundle.set_formatter(Some(custom_formatter));
+    bundle.set_formatter(Some(Box::new(custom_formatter)));
 
     let msg = bundle.get_message("key-num-implicit").unwrap();
     let val = bundle.format_pattern(msg.value().unwrap(), None, &mut errors);

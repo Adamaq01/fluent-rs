@@ -96,6 +96,7 @@ impl<'p> ResolveValue for ast::Pattern<&'p str> {
                 return scope
                     .bundle
                     .transform
+                    .as_ref()
                     .map_or_else(|| value.into(), |transform| transform(value).into());
             }
         }

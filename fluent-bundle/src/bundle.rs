@@ -137,8 +137,8 @@ pub struct FluentBundle<R, M> {
     pub(crate) entries: FxHashMap<String, Entry>,
     pub(crate) intls: M,
     pub(crate) use_isolating: bool,
-    pub(crate) transform: Option<fn(&str) -> Cow<str>>,
-    pub(crate) formatter: Option<fn(&FluentValue, &M) -> Option<String>>,
+    pub(crate) transform: Option<Box<dyn Fn(&str) -> Cow<str>>>,
+    pub(crate) formatter: Option<Box<dyn Fn(&FluentValue, &M) -> Option<String>>>,
 }
 
 impl<R, M> FluentBundle<R, M> {
@@ -337,7 +337,7 @@ impl<R, M> FluentBundle<R, M> {
     /// This is currently primarly used for pseudolocalization,
     /// and `fluent-pseudo` crate provides a function
     /// that can be passed here.
-    pub fn set_transform(&mut self, func: Option<fn(&str) -> Cow<str>>) {
+    pub fn set_transform(&mut self, func: Option<Box<dyn Fn(&str) -> Cow<str>>>) {
         self.transform = func;
     }
 
@@ -347,7 +347,7 @@ impl<R, M> FluentBundle<R, M> {
     ///
     /// It's particularly useful for plugging in an external
     /// formatter for `FluentValue::Number`.
-    pub fn set_formatter(&mut self, func: Option<fn(&FluentValue, &M) -> Option<String>>) {
+    pub fn set_formatter(&mut self, func: Option<Box<dyn Fn(&FluentValue, &M) -> Option<String>>>) {
         self.formatter = func;
     }
 
